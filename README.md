@@ -16,7 +16,7 @@ Contact List is a web application that allows users to perform CRUD (Create, Rea
 
 ## Live Demo
 
-You can view the live demo of the project [here]([http://your-deployment-url.com](https://contact-list-pink.vercel.app/)).
+You can view the live demo of the project [here](https://contact-list-pink.vercel.app/).
 
 ## Getting Started
 
