@@ -80,6 +80,7 @@ WSGI_APPLICATION = 'contactList.wsgi.application'
 # CORS
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "https://contact-list-d9b2twy6t-shrees-projects-249362fa.vercel.app/"
 ]
 
 CORS_ALLOW_METHODS = (
