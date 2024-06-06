@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'contactList.wsgi.application'
 
 # CORS
 CORS_ALLOWED_ORIGINS = [
-    "https://contact-list-d9b2twy6t-shrees-projects-249362fa.vercel.app/"
+    "https://contact-list-pink.vercel.app/"
 ]
 
 CORS_ALLOW_METHODS = (
