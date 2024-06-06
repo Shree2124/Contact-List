@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-g6+9i#g*1_4-u+#xja-8n!*93d*!pcy6s@oyvy=ebk%5)$czd2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
+ALLOWED_HOSTS = ['.vercel.app', '*','.now.sh']
 
 
 # Application definition
@@ -107,15 +107,16 @@ CORS_ALLOW_HEADERS = (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'contact_list',
+        'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': 'shree',
-        'HOST': "localhost",
+        'PASSWORD': 'amVdznZlBJOxKSdbQeGOkoCptvMmepBC',
+        'HOST': "roundhouse.proxy.rlwy.net",
+        'PORT': '49642'
         
     }
 }
 
-DATABASES = dj_database_url.config()
+# DATABASES = dj_database_url.config()
 
 
 # REST_FRAMEWORK = {
