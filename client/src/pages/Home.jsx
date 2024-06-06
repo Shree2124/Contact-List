@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { MdOutlineAddBox } from "react-icons/md";
 import { Spinner, NumbersTable } from "../components/index.js";
 import axios from "axios";
+import { APIString } from "../constants/APIString.js";
 
 const Home = () => {
   const [number,setNumber] = useState([])
@@ -10,7 +11,7 @@ const Home = () => {
   useEffect(() => {
     async function getAllNumbers(){
     try {
-      const data = await axios.get("http://127.0.0.1:8000/api/get-all-numbers");
+      const data = await axios.get(`${APIString}/get-all-numbers`);
       console.log(data.data);
       setNumber(data.data)
     } catch (error) {
