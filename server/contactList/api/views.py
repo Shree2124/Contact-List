@@ -21,7 +21,8 @@ def AddNumber(request):
     if serializer.is_valid():
         serializer.save()
         return Response({"success"},status=status.HTTP_201_CREATED)
-    return JsonResponse({"message":serializer.error,
+    return JsonResponse({"messages":str(serializer.error_messages),
+                         "error":str(serializer.errors),
                          "status":status.HTTP_400_BAD_REQUEST})
 
 @api_view(['DELETE'])
