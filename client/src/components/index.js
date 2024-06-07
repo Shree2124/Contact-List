@@ -5,6 +5,7 @@ import DeleteNumber from "./DeleteNumber.jsx";
 import Spinner from "./Spinner/Spinner.jsx";
 import NumbersTable from "./Home/NumbersTable.jsx";
 import BackBtn from "./Buttons/BackBtn.jsx";
+import Errors from "./Errors.jsx"
 
 export {
     AddNumber,
@@ -13,5 +14,6 @@ export {
     DeleteNumber,
     Spinner,
     BackBtn,
-    NumbersTable
+    NumbersTable,
+    Errors
 }

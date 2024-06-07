@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BackBtn, Spinner } from "./index.js";
+import { BackBtn, Spinner, Errors } from "./index.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { faSquarePhone } from "@fortawesome/free-solid-svg-icons";
@@ -11,10 +11,11 @@ import { useSnackbar } from 'notistack'
 const AddNumber = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [number, setNumber] = useState(null);
+  const [number, setNumber] = useState();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
   const { enqueueSnackbar } = useSnackbar();
+  const [errors, setErrors] = useState("");
 
   // console.log(firstName);
   const handleSubmit = async (e) => {
@@ -26,11 +27,12 @@ const AddNumber = () => {
       mobileNumber: number,
     };
     setLoading(true)
-    console.log(data);
-      await axios
+    // console.log(data);
+      const res = await axios
         .post(`${APIString}/add-number`, data)
-        .then(() => {
+        .then((res) => {
           setLoading(false)
+          console.log(res);
           console.log("Success");
           enqueueSnackbar('Number added successfully',{variant: 'success'})
           navigate("/")
@@ -38,9 +40,11 @@ const AddNumber = () => {
         .catch((error) => {
           console.log(error);
           setLoading(false)
+          // setErrors(error)
           enqueueSnackbar('Something went wrong',{variant: 'error'})
           console.log("Error");
         });
+        console.log(res);
   };
 
   return (
@@ -48,6 +52,7 @@ const AddNumber = () => {
       <BackBtn />
       <h1 className="text-3xl my-4">Add Number</h1>
       {loading ? <Spinner /> : ""}
+      {/* {errors ? <Errors error={errors}></Errors>:""} */}
         <div className="flex flex-col border-2 border-sky-400 rounded-xl w-[600] p-4 mx-auto">
           <div className="flex w-full">
             <div>
