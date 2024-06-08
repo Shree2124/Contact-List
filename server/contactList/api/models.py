@@ -11,7 +11,7 @@ class ContactList(models.Model):
     mobileNumber = models.BigIntegerField(validators=[
         MinValueValidator(6000000000),  
         MaxValueValidator(9999999999) 
-    ])
+    ], unique=True)
     createdAt = models.DateTimeField(default=timezone.now)
     
     def __str__(self):

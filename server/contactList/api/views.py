@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from .models import ContactList
 from rest_framework import status
 from .serializers import ContactListSerializer
-from django.http import JsonResponse
 
 # Create your views here.
 
@@ -21,9 +20,7 @@ def AddNumber(request):
     if serializer.is_valid():
         serializer.save()
         return Response({"success"},status=status.HTTP_201_CREATED)
-    return JsonResponse({"messages":str(serializer.error_messages),
-                         "error":str(serializer.errors),
-                         "status":status.HTTP_400_BAD_REQUEST})
+    return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
 def DeleteNumber(request, id):

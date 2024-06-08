@@ -6,45 +6,47 @@ import { faSquarePhone } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { APIString } from "../constants/APIString.js";
 import { useNavigate } from "react-router-dom";
-import { useSnackbar } from 'notistack'
+import { useSnackbar } from "notistack";
+import { useForm } from "react-hook-form";
 
 const AddNumber = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [number, setNumber] = useState();
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-  const [errors, setErrors] = useState("");
+  // const [errors, setErrors] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   // console.log(firstName);
-  const handleSubmit = async (e) => {
+  const dataSubmit = async(data) => {
     console.log("inside handleSubmit");
     // e.preventdefault();
-    const data = {
-      firstName: firstName,
-      lastName: lastName,
-      mobileNumber: number,
-    };
-    setLoading(true)
-    // console.log(data);
-      const res = await axios
-        .post(`${APIString}/add-number`, data)
-        .then((res) => {
-          setLoading(false)
-          console.log(res);
-          console.log("Success");
-          enqueueSnackbar('Number added successfully',{variant: 'success'})
-          navigate("/")
-        })
-        .catch((error) => {
-          console.log(error);
-          setLoading(false)
-          // setErrors(error)
-          enqueueSnackbar('Something went wrong',{variant: 'error'})
-          console.log("Error");
-        });
+
+   
+    setLoading(true);
+    console.log(data);
+    await axios
+      .post(`${APIString}/add-number`, data)
+      .then((res) => {
+        setLoading(false);
         console.log(res);
+        console.log("Success");
+        enqueueSnackbar("Number added successfully", { variant: "success" });
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+        setErrors(error.data.message);
+        enqueueSnackbar("Something went wrong", { variant: "error" });
+        console.log("Error");
+      });
   };
 
   return (
@@ -52,7 +54,7 @@ const AddNumber = () => {
       <BackBtn />
       <h1 className="text-3xl my-4">Add Number</h1>
       {loading ? <Spinner /> : ""}
-      {/* {errors ? <Errors error={errors}></Errors>:""} */}
+      <form onSubmit={handleSubmit(dataSubmit)}>
         <div className="flex flex-col border-2 border-sky-400 rounded-xl w-[600] p-4 mx-auto">
           <div className="flex w-full">
             <div>
@@ -64,25 +66,38 @@ const AddNumber = () => {
               <div className="my-4">
                 <input
                   type="text"
-                  value={firstName}
+                  id="firstName"
+                  // value={firstName}
                   onChange={(e) => {
                     setFirstName(e.target.value);
                   }}
                   placeholder="First Name"
                   className=" border-blue-300 p-2 border w-full"
+                  {...register("firstName", {
+                    required: "First Name is required",
+                  })}
                 />
+                {errors.firstName && (
+                  <Errors error={errors.firstName.message} />
+                )}
               </div>
               <div className="my-4">
                 {/* <FontAwesomeIcon icon={faUser} /> */}
                 <input
                   type="text"
-                  value={lastName}
+                  id="lastName"
+                  // value={lastName}
                   onChange={(e) => {
                     setLastName(e.target.value);
                   }}
                   placeholder="Last Name"
                   className="border-blue-300 p-2 border w-full"
+                  required={true}
+                  {...register("lastName", {
+                    required: "Last Name is required",
+                  })}
                 />
+                {errors.lastName && <Errors error={errors.lastName.message} />}
               </div>
             </div>
           </div>
@@ -95,27 +110,43 @@ const AddNumber = () => {
             <div className="w-full ml-4">
               <div className="my-4">
                 <input
+                  id="mobileNumber"
                   type="number"
-                  value={number}
-                  onChange={(e) => {
-                    setNumber(e.target.value);
-                  }}
+                  // value={number}
+                  // onChange={(e) => {
+                  //   setNumber(e.target.value);
+                  // }}
                   placeholder="Number"
                   className="border-blue-300 p-2 border w-full"
+                  required={true}
+                  {...register("mobileNumber", {
+                    required: "Number is required",
+                    min: {
+                      value: 6000000000,
+                      message: "Number must be 10 digits",
+                    },
+                    max: {
+                      value: 9999999999,
+                      message: "Number must be 10 digits",
+                    },
+                    validate: (value) =>
+                      !isNaN(value) || "Value must be a number",
+                  })}
                 />
+                {errors.number && <Errors error={errors.number.message} />}
               </div>
             </div>
           </div>
           <div className="w-full justify-center flex">
             <button
               type="submit"
-              onClick={handleSubmit}
               className="bg-blue-400 rounded-xl px-4 py-2 text-xl text-gray-700"
             >
               Save
             </button>
           </div>
         </div>
+      </form>
     </div>
   );
 };
