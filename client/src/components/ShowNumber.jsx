@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Spinner, BackBtn } from "./index.js";
-import {numbers} from "../constants/SampleData.js"
+import { numbers } from "../constants/SampleData.js";
 import moment from "moment";
-import dayjs from "dayjs"
+import dayjs from "dayjs";
 
 const ShowNumber = () => {
   const [loading, setLoading] = useState(false);
-  const [number, setNumber] = useState({})
+  const [number, setNumber] = useState({});
 
-  useEffect(()=>{
-
-    setNumber(numbers[0])
-  },[number])
+  useEffect(() => {
+    setNumber(numbers[0]);
+  }, [number]);
 
   return (
     <div className="p-4">
@@ -40,7 +39,7 @@ const ShowNumber = () => {
           <div className="my-4">
             <span className="text-xl mr-4 text-gray-500">Create Time</span>
             <span>{moment(number.createdAt).format("LLL")}</span>
-          </div>  
+          </div>
         </div>
       )}
     </div>

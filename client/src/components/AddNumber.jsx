@@ -24,11 +24,10 @@ const AddNumber = () => {
   } = useForm();
 
   // console.log(firstName);
-  const dataSubmit = async(data) => {
+  const dataSubmit = async (data) => {
     console.log("inside handleSubmit");
     // e.preventdefault();
 
-   
     setLoading(true);
     console.log(data);
     await axios
@@ -92,7 +91,6 @@ const AddNumber = () => {
                   }}
                   placeholder="Last Name"
                   className="border-blue-300 p-2 border w-full"
-                  required={true}
                   {...register("lastName", {
                     required: "Last Name is required",
                   })}
@@ -133,7 +131,9 @@ const AddNumber = () => {
                       !isNaN(value) || "Value must be a number",
                   })}
                 />
-                {errors.number && <Errors error={errors.mobileNumber.message} />}
+                {errors.number && (
+                  <Errors error={errors.mobileNumber.message} />
+                )}
               </div>
             </div>
           </div>
