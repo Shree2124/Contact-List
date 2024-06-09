@@ -133,7 +133,7 @@ const AddNumber = () => {
                       !isNaN(value) || "Value must be a number",
                   })}
                 />
-                {errors.number && <Errors error={errors.number.message} />}
+                {errors.number && <Errors error={errors.mobileNumber.message} />}
               </div>
             </div>
           </div>
