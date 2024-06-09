@@ -24,6 +24,7 @@ const AddNumber = () => {
   } = useForm();
 
   const dataSubmit = async (data) => {
+    console.log(data);
     setLoading(true);
     await axios
       .post(`${APIString}/add-number`, data)
@@ -33,6 +34,7 @@ const AddNumber = () => {
         navigate("/");
       })
       .catch((error) => {
+        console.log(error);
         setLoading(false);
         enqueueSnackbar("Error", { variant: "error" });
       });
