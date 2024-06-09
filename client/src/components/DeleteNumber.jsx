@@ -23,7 +23,6 @@ const DeleteNumber = () => {
       .catch((error) => {
         setLoading(false);
         enqueueSnackbar("Error", { variant: "error" });
-        console.log(error);
       });
   };
 

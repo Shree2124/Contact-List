@@ -38,7 +38,6 @@ const EditNumber = () => {
   }, [id, setValue]);
 
   const handleDataSubmit = async (data) => {
-    // console.log(data);
     setLoading(true);
     try {
       await axios.put(`${APIString}/edit-number/${data.objId}`, data);
@@ -46,7 +45,6 @@ const EditNumber = () => {
       enqueueSnackbar("Number Edited successfully", { variant: "success" });
       navigate("/");
     } catch (error) {
-      console.log(error);
       setLoading(false);
       enqueueSnackbar("Error", { variant: "error" });
     }

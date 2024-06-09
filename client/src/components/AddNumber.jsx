@@ -16,35 +16,25 @@ const AddNumber = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-  // const [errors, setErrors] = useState("");
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  // console.log(firstName);
   const dataSubmit = async (data) => {
-    console.log("inside handleSubmit");
-    // e.preventdefault();
-
     setLoading(true);
-    console.log(data);
     await axios
       .post(`${APIString}/add-number`, data)
       .then((res) => {
         setLoading(false);
-        console.log(res);
-        console.log("Success");
-        enqueueSnackbar("Number added successfully", { variant: "success" });
+        enqueueSnackbar("Contact added successfully", { variant: "success" });
         navigate("/");
       })
       .catch((error) => {
-        console.log(error);
         setLoading(false);
-        setErrors(error.data.message);
-        enqueueSnackbar("Something went wrong", { variant: "error" });
-        console.log("Error");
+        enqueueSnackbar("Error", { variant: "error" });
       });
   };
 

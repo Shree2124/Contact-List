@@ -1,16 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { Spinner, BackBtn } from "./index.js";
-import { numbers } from "../constants/SampleData.js";
 import moment from "moment";
 import dayjs from "dayjs";
+import { useParams } from "react-router-dom";
+import axios from "axios"
+import { APIString } from "../constants/APIString.js";
 
-const ShowNumber = () => {
+const ShowNumber = ({numbers}) => {
   const [loading, setLoading] = useState(false);
   const [number, setNumber] = useState({});
+  const {id} = useParams()
+
+  const getData = async () => {
+    setLoading(true)
+    try {
+      const res = await axios.get(`${APIString}/get-number/${id}`);
+      setNumber(res.data)
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+    }
+  };
 
   useEffect(() => {
-    setNumber(numbers[0]);
-  }, [number]);
+    getData();
+  }, []);
 
   return (
     <div className="p-4">
@@ -34,7 +48,7 @@ const ShowNumber = () => {
           </div>
           <div className="my-4">
             <span className="text-xl mr-4 text-gray-500">Number</span>
-            <span>{number.number}</span>
+            <span>{number.mobileNumber}</span>
           </div>
           <div className="my-4">
             <span className="text-xl mr-4 text-gray-500">Create Time</span>
